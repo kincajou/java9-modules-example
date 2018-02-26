@@ -19,6 +19,6 @@ public class HttpClientImpl implements HttpClient {
 
   @Override
   public void shutdown() {
-
+    requestDebug.onShutdown(this.getClass().getCanonicalName());
   }
 }

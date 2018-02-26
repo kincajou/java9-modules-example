@@ -3,13 +3,11 @@ package ru.hh.jclient.common.ning;
 import java.io.IOException;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import ru.hh.jclient.common.HttpClient;
-import ru.hh.jclient.common.Proper;
 import ru.hh.jclient.common.RequestDebug;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.ExecutionException;
 
-@Proper
 public class HttpClientImpl implements HttpClient {
 
   private RequestDebug requestDebug;
@@ -34,6 +32,7 @@ public class HttpClientImpl implements HttpClient {
 
   @Override
   public void shutdown() {
+    requestDebug.onShutdown(this.getClass().getCanonicalName());
     try {
       http.close();
     }

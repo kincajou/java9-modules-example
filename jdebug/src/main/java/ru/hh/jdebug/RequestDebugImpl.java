@@ -9,4 +9,8 @@ public class RequestDebugImpl implements RequestDebug {
     System.out.println(url);
   }
 
+  @Override
+  public void onShutdown(String name) {
+    System.out.println("shutting down: " + name);
+  }
 }
