@@ -1,5 +1,6 @@
 package ru.hh.jclient.common.ning;
 
+import java.io.IOException;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import ru.hh.jclient.common.HttpClient;
 import ru.hh.jclient.common.Proper;
@@ -26,6 +27,17 @@ public class HttpClientImpl implements HttpClient {
       return http.prepareGet(url).execute().get().getResponseBody();
     }
     catch (InterruptedException | ExecutionException e) {
+      Thread.currentThread().interrupt();
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void shutdown() {
+    try {
+      http.close();
+    }
+    catch (IOException e) {
       throw new RuntimeException(e);
     }
   }

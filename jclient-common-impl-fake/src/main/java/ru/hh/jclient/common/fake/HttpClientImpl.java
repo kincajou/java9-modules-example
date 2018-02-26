@@ -16,4 +16,9 @@ public class HttpClientImpl implements HttpClient {
     requestDebug.onRequest(url);
     return "потрачено";
   }
+
+  @Override
+  public void shutdown() {
+
+  }
 }

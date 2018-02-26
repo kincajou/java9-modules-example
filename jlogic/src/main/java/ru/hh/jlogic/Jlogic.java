@@ -4,7 +4,6 @@ import ru.hh.jclient.common.HttpClient;
 import ru.hh.jclient.common.HttpClientFactory;
 import ru.hh.jclient.common.RequestDebug;
 
-import java.security.Provider;
 import java.util.ServiceLoader;
 
 public class Jlogic {
@@ -13,12 +12,13 @@ public class Jlogic {
     ServiceLoader<RequestDebug> requestDebugServiceLoader = ServiceLoader.load(RequestDebug.class);
     RequestDebug requestDebug = requestDebugServiceLoader.stream().findFirst().orElseThrow(() -> new IllegalStateException("Failed to find request debug impl")).get();
 
-    ServiceLoader.load(HttpClientFactory.class).forEach(f -> requestAndPrint(requestDebug, f));
+    ServiceLoader.load(HttpClientFactory.class).forEach(f -> requestAndShutdown(requestDebug, f));
   }
 
-  private static void requestAndPrint(RequestDebug requestDebug, HttpClientFactory factory) {
+  private static void requestAndShutdown(RequestDebug requestDebug, HttpClientFactory factory) {
     HttpClient client = factory.create(requestDebug);
     String page = client.getPage("http://www.google.com");
     System.out.println("[" + client.getClass() + "]: " + page);
+    client.shutdown();
   }
 }
