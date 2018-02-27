@@ -1,21 +1,22 @@
 package ru.hh.jclient.common.ning;
 
 import java.io.IOException;
-import org.asynchttpclient.DefaultAsyncHttpClient;
 import ru.hh.jclient.common.HttpClient;
+import ru.hh.jclient.common.Proper;
 import ru.hh.jclient.common.RequestDebug;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.ExecutionException;
 
+@Proper
 public class HttpClientImpl implements HttpClient {
 
   private RequestDebug requestDebug;
   private AsyncHttpClient http;
 
-  HttpClientImpl(RequestDebug requestDebug) {
+  public HttpClientImpl(RequestDebug requestDebug, AsyncHttpClient http) {
     this.requestDebug = requestDebug;
-    this.http = new DefaultAsyncHttpClient();
+    this.http = http;
   }
 
   @Override
